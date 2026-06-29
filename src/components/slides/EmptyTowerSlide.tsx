@@ -149,8 +149,8 @@ const AGENT_TRIES: AgentTry[] = [
 ];
 
 const SHADOW = "drop-shadow(0 5px 6px rgba(0,0,0,0.4))";
-const GHOST_STROKE = "rgba(255,255,255,0.18)";
-const GHOST_TEXT = "rgba(255,255,255,0.22)";
+const GHOST_STROKE = "rgba(255,255,255,0.42)";
+const GHOST_TEXT = "rgba(255,255,255,0.55)";
 const REVERT_HEIGHT_BONUS = 12;
 const HOVER_LIFT = -34;
 const ENTRY_LIFT = HOVER_LIFT - 30;
@@ -334,7 +334,7 @@ function ScrambledLabel({ template }: { template: string }) {
 	return <>{text}</>;
 }
 
-function ScramblingIcon({ size = 14 }: { size?: number }) {
+function ScramblingIcon({ size = 16 }: { size?: number }) {
 	const [idx, setIdx] = useState(() =>
 		Math.floor(Math.random() * SCRAMBLE_ICONS.length),
 	);
@@ -358,7 +358,7 @@ function ScramblingIcon({ size = 14 }: { size?: number }) {
 		<Icon
 			aria-hidden
 			size={size}
-			strokeWidth={2.2}
+			strokeWidth={2.6}
 			className="shrink-0"
 		/>
 	);
@@ -398,8 +398,8 @@ function GhostBrickAt({ cell }: { cell: LeanedBrick }) {
 					d={path}
 					fill="none"
 					stroke={GHOST_STROKE}
-					strokeWidth="1.25"
-					strokeDasharray="4 5"
+					strokeWidth="1.75"
+					strokeDasharray="5 4"
 				/>
 			</svg>
 			<div
@@ -408,7 +408,7 @@ function GhostBrickAt({ cell }: { cell: LeanedBrick }) {
 			>
 				<span
 					className="inline-flex items-center gap-2 font-mono font-medium uppercase leading-none tracking-[0.06em]"
-					style={{ color: GHOST_TEXT, fontSize: 14 }}
+					style={{ color: GHOST_TEXT, fontSize: 16 }}
 				>
 					<ScramblingIcon />
 					<ScrambledLabel template={cell.brick.label} />
@@ -471,7 +471,7 @@ function GhostSidewaysBrickAt({ cell }: { cell: LeanedBrick }) {
 				>
 					<span
 						className="inline-flex items-center gap-2 font-mono font-medium uppercase leading-none tracking-[0.06em]"
-						style={{ color: GHOST_TEXT, fontSize: 14 }}
+						style={{ color: GHOST_TEXT, fontSize: 16 }}
 					>
 						<ScramblingIcon />
 						<ScrambledLabel template={cell.brick.label} />
