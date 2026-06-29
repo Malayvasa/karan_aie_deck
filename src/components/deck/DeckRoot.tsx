@@ -3,6 +3,7 @@
 import { Deck, defaultTransition } from "spectacle";
 import { CodingArcSlide } from "~/components/slides/CodingArcSlide";
 import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
+import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
 import { TitleSlide } from "~/components/slides/TitleSlide";
 import { ToolCallsSlide } from "~/components/slides/ToolCallsSlide";
 
@@ -42,6 +43,7 @@ export function DeckRoot() {
 			<ToolCallsSlide />
 			<CodingArcSlide />
 			<DependencyTowerSlide />
+			<EmptyTowerSlide />
 		</Deck>
 	);
 }
