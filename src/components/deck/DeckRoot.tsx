@@ -2,6 +2,7 @@
 
 import { Deck, defaultTransition } from "spectacle";
 import { BridgeSlide } from "~/components/slides/BridgeSlide";
+import { CodebaseBentoSlide } from "~/components/slides/CodebaseBentoSlide";
 import { CodingArcSlide } from "~/components/slides/CodingArcSlide";
 import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
 import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
@@ -46,6 +47,7 @@ export function DeckRoot() {
 			<DependencyTowerSlide />
 			<EmptyTowerSlide />
 			<BridgeSlide />
+			<CodebaseBentoSlide />
 		</Deck>
 	);
 }
