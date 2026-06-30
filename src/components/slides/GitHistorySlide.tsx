@@ -242,15 +242,16 @@ const LANE_Y: Record<number, number> = {
 };
 const TIME_AXIS_Y = 395;
 
-// Mechanical timing
+// Mechanical timing — agent starts AT stop1 (no fly-in from "today"),
+// cycles through stops, and returns to stop1 to loop seamlessly.
 const TRAVEL = 0.42;
 const PAUSE = 2.6;
-// Longer return travel — agent has to fly from the leftmost stop all the
-// way back to "today" before the next loop.
-const RETURN_TRAVEL = 1.2;
-const KICKOFF_DELAY = 0.6;
-const T0 = 0;
-const T1_ARRIVE = T0 + TRAVEL;
+// Stop3 → stop1 return distance; still travels right but shorter than today.
+const RETURN_TRAVEL = 1.0;
+// Wait for all branch draw animations (last branch finishes ~2.1s) to land
+// before the agent kicks off.
+const KICKOFF_DELAY = 2.3;
+const T1_ARRIVE = 0;
 const T1_LEAVE = T1_ARRIVE + PAUSE;
 const T2_ARRIVE = T1_LEAVE + TRAVEL;
 const T2_LEAVE = T2_ARRIVE + PAUSE;
@@ -272,26 +273,11 @@ function dimKeyframes(thisBranchId: string) {
 	const a1 = thisBranchId === SELECTED_BRANCH_IDS[0] ? 1 : DIM;
 	const a2 = thisBranchId === SELECTED_BRANCH_IDS[1] ? 1 : DIM;
 	const a3 = thisBranchId === SELECTED_BRANCH_IDS[2] ? 1 : DIM;
-	const keys = [
-		1,
-		1,
-		a1,
-		a1,
-		1,
-		1,
-		a2,
-		a2,
-		1,
-		1,
-		a3,
-		a3,
-		1,
-		1,
-	];
+	// Cycle starts AT stop1 (a1 active), travels through stop2, stop3, then
+	// returns to stop1. First and last keys both = a1 so the loop is seamless.
+	const keys = [a1, a1, 1, 1, a2, a2, 1, 1, a3, a3, 1, 1, a1];
 	const times = [
 		0,
-		norm(T1_ARRIVE - 0.08),
-		norm(T1_ARRIVE + 0.05),
 		norm(T1_LEAVE - 0.05),
 		norm(T1_LEAVE + 0.08),
 		norm(T2_ARRIVE - 0.08),
@@ -302,6 +288,7 @@ function dimKeyframes(thisBranchId: string) {
 		norm(T3_ARRIVE + 0.05),
 		norm(T3_LEAVE - 0.05),
 		norm(T3_LEAVE + 0.08),
+		1 - 0.04,
 		1,
 	];
 	return { keys, times };
@@ -317,21 +304,23 @@ export function GitHistorySlide() {
 
 function Body() {
 	const { isSlideActive } = useContext(SlideContext);
-	const startX = xFor(100);
+	const stop1X = xFor(STOPS[0].pos);
+	const stop2X = xFor(STOPS[1].pos);
+	const stop3X = xFor(STOPS[2].pos);
 
+	// Cycle: appears at stop1 → stop2 → stop3 → back to stop1. First and last
+	// keyframes are stop1 so the loop wraps with no visible jump.
 	const agentKeyframes = [
-		startX,
-		xFor(STOPS[0].pos),
-		xFor(STOPS[0].pos),
-		xFor(STOPS[1].pos),
-		xFor(STOPS[1].pos),
-		xFor(STOPS[2].pos),
-		xFor(STOPS[2].pos),
-		startX,
+		stop1X,
+		stop1X,
+		stop2X,
+		stop2X,
+		stop3X,
+		stop3X,
+		stop1X,
 	];
 	const agentTimes = [
-		norm(T0),
-		norm(T1_ARRIVE),
+		0,
 		norm(T1_LEAVE),
 		norm(T2_ARRIVE),
 		norm(T2_LEAVE),
@@ -402,11 +391,11 @@ function Body() {
 						{/* Inner: handles x keyframes — no opacity interference */}
 						<motion.div
 							style={{ willChange: "transform" }}
-							initial={{ x: startX }}
+							initial={{ x: stop1X }}
 							animate={
 								isSlideActive
 									? { x: agentKeyframes }
-									: { x: startX }
+									: { x: stop1X }
 							}
 							transition={{
 								duration: TOTAL,
