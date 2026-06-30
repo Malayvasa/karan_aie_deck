@@ -57,8 +57,9 @@ export function HistoryBridgeSlide() {
 
 function HistoryBridgeBody() {
 	const { isSlideActive } = useContext(SlideContext);
-	// Both filled bricks land after the ghost row stagger finishes.
-	const FILLED_DELAY = FIRST_BRICK_DELAY + NUM_BRICKS * BRICK_STAGGER;
+	// Only the NEW brick (history) gets the drop animation. Centralization
+	// is already established by this point in the deck, ghost bricks just sit.
+	const FILLED_DELAY = FIRST_BRICK_DELAY;
 
 	return (
 		<>
@@ -84,16 +85,14 @@ function HistoryBridgeBody() {
 						{Array.from({ length: NUM_BRICKS }, (_, i) => {
 							const col = i % COLS;
 							const row = Math.floor(i / COLS);
-							// Skip the slots where real bricks land — bottom-left
-							// (centralization) and bottom-middle (history).
-							const isFilledSlot =
-								row === 1 && (col === 0 || col === 1);
-							if (isFilledSlot) return null;
-							// Lay the bottom row first, then the top row — reading
-							// order within each row.
-							const orderIndex = (ROWS - 1 - row) * COLS + col;
+							// Only skip the slot for the already-established brick
+							// (centralization). The new brick's slot (history)
+							// keeps its ghost outline, which gets covered when
+							// the brick drops on top.
+							const isEstablishedSlot = row === 1 && col === 0;
+							if (isEstablishedSlot) return null;
 							return (
-								<motion.div
+								<div
 									key={i}
 									className="absolute"
 									style={{
@@ -103,28 +102,14 @@ function HistoryBridgeBody() {
 										top: row * ROW_Y,
 										zIndex: ROWS - row,
 									}}
-									initial={{ opacity: 0, y: ENTER_LIFT }}
-									animate={
-										isSlideActive
-											? { opacity: 1, y: 0 }
-											: { opacity: 0, y: ENTER_LIFT }
-									}
-									transition={{
-										duration: 0.45,
-										ease: [0.34, 1.18, 0.6, 1],
-										delay: isSlideActive
-											? FIRST_BRICK_DELAY +
-												orderIndex * BRICK_STAGGER
-											: 0,
-									}}
 								>
 									<GhostBrick studs={BRICK_STUDS} />
-								</motion.div>
+								</div>
 							);
 						})}
 
-						{/* Centralization — sits on top of its ghost in the bottom-left. */}
-						<motion.div
+						{/* Centralization — already established, just sits in place. */}
+						<div
 							className="absolute"
 							style={{
 								width: BRICK_W,
@@ -134,26 +119,15 @@ function HistoryBridgeBody() {
 								filter: "drop-shadow(0 5px 6px rgba(0,0,0,0.4))",
 								zIndex: 20,
 							}}
-							initial={{ opacity: 0, y: FILLED_DROP }}
-							animate={
-								isSlideActive
-									? { opacity: 1, y: 0 }
-									: { opacity: 0, y: FILLED_DROP }
-							}
-							transition={{
-								duration: 0.55,
-								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive ? FILLED_DELAY : 0,
-							}}
 						>
 							<LegoBrick
 								brick={CENTRALIZATION}
 								idx={1000}
 								studs={BRICK_STUDS}
 							/>
-						</motion.div>
+						</div>
 
-						{/* History — sits on top of its ghost in the bottom-middle. */}
+						{/* History — the NEW brick this slide adds (drops in). */}
 						<motion.div
 							className="absolute"
 							style={{
@@ -173,9 +147,7 @@ function HistoryBridgeBody() {
 							transition={{
 								duration: 0.55,
 								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive
-									? FILLED_DELAY + BRICK_STAGGER
-									: 0,
+								delay: isSlideActive ? FILLED_DELAY : 0,
 							}}
 						>
 							<LegoBrick

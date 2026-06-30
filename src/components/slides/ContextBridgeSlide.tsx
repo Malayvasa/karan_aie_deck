@@ -64,8 +64,9 @@ export function ContextBridgeSlide() {
 
 function ContextBridgeBody() {
 	const { isSlideActive } = useContext(SlideContext);
-	// All filled bricks land after the ghost row stagger finishes.
-	const FILLED_DELAY = FIRST_BRICK_DELAY + NUM_BRICKS * BRICK_STAGGER;
+	// Only the NEW brick (context) gets the drop animation. Centralization
+	// and history are already established; ghost bricks just sit.
+	const FILLED_DELAY = FIRST_BRICK_DELAY;
 
 	return (
 		<>
@@ -91,15 +92,14 @@ function ContextBridgeBody() {
 						{Array.from({ length: NUM_BRICKS }, (_, i) => {
 							const col = i % COLS;
 							const row = Math.floor(i / COLS);
-							// Skip the slots where real bricks land — the entire
-							// bottom row is filled now: centralization, history,
-							// context.
-							if (row === 1) return null;
-							// Lay the bottom row first, then the top row — reading
-							// order within each row.
-							const orderIndex = (ROWS - 1 - row) * COLS + col;
+							// Skip only the established slots (centralization,
+							// history). The new brick's slot (context) keeps its
+							// ghost — it'll be covered when the brick drops in.
+							const isEstablishedSlot =
+								row === 1 && (col === 0 || col === 1);
+							if (isEstablishedSlot) return null;
 							return (
-								<motion.div
+								<div
 									key={i}
 									className="absolute"
 									style={{
@@ -109,28 +109,14 @@ function ContextBridgeBody() {
 										top: row * ROW_Y,
 										zIndex: ROWS - row,
 									}}
-									initial={{ opacity: 0, y: ENTER_LIFT }}
-									animate={
-										isSlideActive
-											? { opacity: 1, y: 0 }
-											: { opacity: 0, y: ENTER_LIFT }
-									}
-									transition={{
-										duration: 0.45,
-										ease: [0.34, 1.18, 0.6, 1],
-										delay: isSlideActive
-											? FIRST_BRICK_DELAY +
-												orderIndex * BRICK_STAGGER
-											: 0,
-									}}
 								>
 									<GhostBrick studs={BRICK_STUDS} />
-								</motion.div>
+								</div>
 							);
 						})}
 
-						{/* Centralization — bottom-left */}
-						<motion.div
+						{/* Centralization — established */}
+						<div
 							className="absolute"
 							style={{
 								width: BRICK_W,
@@ -140,27 +126,16 @@ function ContextBridgeBody() {
 								filter: "drop-shadow(0 5px 6px rgba(0,0,0,0.4))",
 								zIndex: 20,
 							}}
-							initial={{ opacity: 0, y: FILLED_DROP }}
-							animate={
-								isSlideActive
-									? { opacity: 1, y: 0 }
-									: { opacity: 0, y: FILLED_DROP }
-							}
-							transition={{
-								duration: 0.55,
-								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive ? FILLED_DELAY : 0,
-							}}
 						>
 							<LegoBrick
 								brick={CENTRALIZATION}
 								idx={1000}
 								studs={BRICK_STUDS}
 							/>
-						</motion.div>
+						</div>
 
-						{/* History — bottom-middle */}
-						<motion.div
+						{/* History — established */}
+						<div
 							className="absolute"
 							style={{
 								width: BRICK_W,
@@ -170,28 +145,15 @@ function ContextBridgeBody() {
 								filter: "drop-shadow(0 5px 6px rgba(0,0,0,0.4))",
 								zIndex: 20,
 							}}
-							initial={{ opacity: 0, y: FILLED_DROP }}
-							animate={
-								isSlideActive
-									? { opacity: 1, y: 0 }
-									: { opacity: 0, y: FILLED_DROP }
-							}
-							transition={{
-								duration: 0.55,
-								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive
-									? FILLED_DELAY + BRICK_STAGGER
-									: 0,
-							}}
 						>
 							<LegoBrick
 								brick={HISTORY}
 								idx={1001}
 								studs={BRICK_STUDS}
 							/>
-						</motion.div>
+						</div>
 
-						{/* Context — bottom-right (the new one this slide adds) */}
+						{/* Context — the NEW brick this slide adds (drops in). */}
 						<motion.div
 							className="absolute"
 							style={{
@@ -211,9 +173,7 @@ function ContextBridgeBody() {
 							transition={{
 								duration: 0.55,
 								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive
-									? FILLED_DELAY + 2 * BRICK_STAGGER
-									: 0,
+								delay: isSlideActive ? FILLED_DELAY : 0,
 							}}
 						>
 							<LegoBrick

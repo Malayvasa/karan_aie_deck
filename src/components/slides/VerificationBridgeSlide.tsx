@@ -71,8 +71,9 @@ export function VerificationBridgeSlide() {
 
 function VerificationBridgeBody() {
 	const { isSlideActive } = useContext(SlideContext);
-	// All filled bricks land after the ghost row stagger finishes.
-	const FILLED_DELAY = FIRST_BRICK_DELAY + NUM_BRICKS * BRICK_STAGGER;
+	// Only the NEW brick (verification) gets the drop animation. The bottom
+	// row is already established; ghost bricks just sit.
+	const FILLED_DELAY = FIRST_BRICK_DELAY;
 
 	return (
 		<>
@@ -98,17 +99,13 @@ function VerificationBridgeBody() {
 						{Array.from({ length: NUM_BRICKS }, (_, i) => {
 							const col = i % COLS;
 							const row = Math.floor(i / COLS);
-							// Skip the slots where real bricks land — the bottom
-							// row (centralization, history, context) is fully
-							// filled, and verification fills top-left.
-							const isFilledSlot =
-								row === 1 || (row === 0 && col === 0);
-							if (isFilledSlot) return null;
-							// Lay the bottom row first, then the top row — reading
-							// order within each row.
-							const orderIndex = (ROWS - 1 - row) * COLS + col;
+							// Skip only the established slots (bottom row). The
+							// new brick's slot (verification, top-left) keeps
+							// its ghost — covered when the brick drops in.
+							const isEstablishedSlot = row === 1;
+							if (isEstablishedSlot) return null;
 							return (
-								<motion.div
+								<div
 									key={i}
 									className="absolute"
 									style={{
@@ -118,28 +115,14 @@ function VerificationBridgeBody() {
 										top: row * ROW_Y,
 										zIndex: ROWS - row,
 									}}
-									initial={{ opacity: 0, y: ENTER_LIFT }}
-									animate={
-										isSlideActive
-											? { opacity: 1, y: 0 }
-											: { opacity: 0, y: ENTER_LIFT }
-									}
-									transition={{
-										duration: 0.45,
-										ease: [0.34, 1.18, 0.6, 1],
-										delay: isSlideActive
-											? FIRST_BRICK_DELAY +
-												orderIndex * BRICK_STAGGER
-											: 0,
-									}}
 								>
 									<GhostBrick studs={BRICK_STUDS} />
-								</motion.div>
+								</div>
 							);
 						})}
 
-						{/* Centralization — bottom-left */}
-						<motion.div
+						{/* Centralization — established */}
+						<div
 							className="absolute"
 							style={{
 								width: BRICK_W,
@@ -149,27 +132,16 @@ function VerificationBridgeBody() {
 								filter: "drop-shadow(0 5px 6px rgba(0,0,0,0.4))",
 								zIndex: 20,
 							}}
-							initial={{ opacity: 0, y: FILLED_DROP }}
-							animate={
-								isSlideActive
-									? { opacity: 1, y: 0 }
-									: { opacity: 0, y: FILLED_DROP }
-							}
-							transition={{
-								duration: 0.55,
-								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive ? FILLED_DELAY : 0,
-							}}
 						>
 							<LegoBrick
 								brick={CENTRALIZATION}
 								idx={1000}
 								studs={BRICK_STUDS}
 							/>
-						</motion.div>
+						</div>
 
-						{/* History — bottom-middle */}
-						<motion.div
+						{/* History — established */}
+						<div
 							className="absolute"
 							style={{
 								width: BRICK_W,
@@ -179,29 +151,16 @@ function VerificationBridgeBody() {
 								filter: "drop-shadow(0 5px 6px rgba(0,0,0,0.4))",
 								zIndex: 20,
 							}}
-							initial={{ opacity: 0, y: FILLED_DROP }}
-							animate={
-								isSlideActive
-									? { opacity: 1, y: 0 }
-									: { opacity: 0, y: FILLED_DROP }
-							}
-							transition={{
-								duration: 0.55,
-								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive
-									? FILLED_DELAY + BRICK_STAGGER
-									: 0,
-							}}
 						>
 							<LegoBrick
 								brick={HISTORY}
 								idx={1001}
 								studs={BRICK_STUDS}
 							/>
-						</motion.div>
+						</div>
 
-						{/* Context — bottom-right */}
-						<motion.div
+						{/* Context — established */}
+						<div
 							className="absolute"
 							style={{
 								width: BRICK_W,
@@ -211,28 +170,15 @@ function VerificationBridgeBody() {
 								filter: "drop-shadow(0 5px 6px rgba(0,0,0,0.4))",
 								zIndex: 20,
 							}}
-							initial={{ opacity: 0, y: FILLED_DROP }}
-							animate={
-								isSlideActive
-									? { opacity: 1, y: 0 }
-									: { opacity: 0, y: FILLED_DROP }
-							}
-							transition={{
-								duration: 0.55,
-								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive
-									? FILLED_DELAY + 2 * BRICK_STAGGER
-									: 0,
-							}}
 						>
 							<LegoBrick
 								brick={CONTEXT}
 								idx={1002}
 								studs={BRICK_STUDS}
 							/>
-						</motion.div>
+						</div>
 
-						{/* Verification — top-left (the new one this slide adds) */}
+						{/* Verification — the NEW brick this slide adds (drops in). */}
 						<motion.div
 							className="absolute"
 							style={{
@@ -252,9 +198,7 @@ function VerificationBridgeBody() {
 							transition={{
 								duration: 0.55,
 								ease: [0.34, 1.4, 0.6, 1],
-								delay: isSlideActive
-									? FILLED_DELAY + 3 * BRICK_STAGGER
-									: 0,
+								delay: isSlideActive ? FILLED_DELAY : 0,
 							}}
 						>
 							<LegoBrick
