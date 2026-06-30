@@ -31,13 +31,13 @@ export type SpeakerNote = {
 export const speakerNotes = {
 	title: {
 		section: "01 · AI Engineer · Breakout",
-		script: `I'm Karan, co-founder and CTO of Composio.
-
-If models keep getting better, why is the power of agents still stuck in coding? That's the trillion-dollar question, and I'm here to answer it.`,
+		script: `I'm Karan, co-founder and CTO of Composio.`,
 	},
 	toolCalls: {
 		section: "01 · AI Engineer · Breakout",
-		script: `Most agentic tool calls today are still happening in one place: software engineering. Every other kind of work is trailing far behind.`,
+		script: `Most agentic tool calls today are still happening in one place: software engineering. Every other kind of work is trailing far behind.
+
+If models keep getting better, why is the power of agents still stuck in coding? That's the trillion-dollar question, and I'm here to answer it.`,
 	},
 	codingArc: {
 		section: "02 · Where we are",
