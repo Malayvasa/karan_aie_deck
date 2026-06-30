@@ -176,19 +176,42 @@ function DiagnosisBody() {
 			<PersistentLogo covered={covered} showClose={showClose} />
 
 			<Notes>
-				If you take one thing away today, take this. For two years, the
-				model was the bottleneck — so everyone raced to make it better,
-				and it worked. Coding agents took off because everything around
-				the code was already there. But the model isn&apos;t the
-				bottleneck anymore. The same one that writes your code could run
-				your sales, your hiring, your finance — just as capable the moment
-				it leaves the repo. The bottleneck moved: now it&apos;s the
-				infrastructure nobody built around the work. We build it — that&apos;s
-				Composio. A billion tool calls in, ~300M a month and doubling,
-				running in production at AWS, Zoom, Glean, Base44 and Runner. The
-				models will keep getting better. The bottleneck won&apos;t be the
-				models. We&apos;re hiring — karan@composio.dev, @KaranVaidya6.
-				Thank you.
+				<p>
+					If you take one thing away today, take this. For two years,
+					the model was the bottleneck — so everyone raced to make it
+					better, and it worked. Good enough that coding agents are
+					autonomous, because everything around the code was already
+					there.
+				</p>
+				<p>
+					But the model isn&apos;t the bottleneck anymore. The same
+					one that writes your code could run your sales, your
+					hiring, your finance — it&apos;s just as capable the moment
+					it leaves the repo. But, it would be working blind: no
+					history, no context, no way to verify, no guardrails, no
+					undo.
+				</p>
+				<p>
+					So the bottleneck moved. For years it was the model. Now
+					it&apos;s the infrastructure nobody built around the work.
+					Build that, and the agents we have today get dramatically
+					better.
+				</p>
+				<p>And that&apos;s what we&apos;re building at Composio.</p>
+				<p>
+					So if you&apos;re building agents, point one at Composio
+					and watch what it can suddenly do. Most of the work you
+					think you&apos;d have to build yourself is already there.
+				</p>
+				<p>
+					And if you want to build this future with us — the layer
+					every agent in the world runs on — come find me.
+					We&apos;re hiring, and there&apos;s a lot left to do.
+				</p>
+				<p>
+					The models will keep getting better. The bottleneck
+					won&apos;t be the models. Thank you.
+				</p>
 			</Notes>
 		</div>
 	);

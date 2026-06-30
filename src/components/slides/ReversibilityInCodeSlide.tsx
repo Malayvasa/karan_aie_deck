@@ -183,10 +183,21 @@ function Body() {
 			</div>
 
 			<Notes>
-				Even after a bad commit ships and breaks prod, one command rewinds
-				it. `git revert` creates a new commit that inverts the old one.
-				The bad commit stays in history — nothing is erased. The agent
-				can ship because every action has a road back.
+				<p>
+					In code, you almost always can. Every change is recorded, so
+					every change can be walked back. You can revert a single
+					commit — or track down the exact bad one and pull just
+					that, without touching anything else.
+				</p>
+				<p>
+					Now, a mistake in production is still bad and I won&apos;t
+					pretend like it isn&apos;t. But there&apos;s a difference
+					between bad and permanent. You can always recover. And
+					that&apos;s what lets you trust an agent to act: you can
+					let it run, even on the risky stuff, because the worst
+					thing it can do is something you can undo — not something
+					you can never take back.
+				</p>
 			</Notes>
 		</>
 	);

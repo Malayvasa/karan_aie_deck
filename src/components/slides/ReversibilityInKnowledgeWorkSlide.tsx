@@ -247,11 +247,29 @@ function Body() {
 				</div>
 			</div>
 			<Notes>
-				OpenClaw confirms the email — drafted and sending. Yue tries to
-				stop it, but the action has already fired. The Stripe wire is
-				in flight, tethered by a thin recall line that tightens as it
-				pulls away — and snaps. Past this point, the world has it. No
-				git revert for what just left.
+				<p>For knowledge work, there&apos;s no undo button.</p>
+				<p>
+					Think back to Yue&apos;s inbox — 200 emails, gone, and no
+					revert. That&apos;s the normal case out here, not the
+					disaster case. A sent message is already in someone&apos;s
+					inbox. A wire has cleared. A deleted record is gone forever.
+					Most actions only move one direction, and mistakes becomes
+					permanent.
+				</p>
+				<p>
+					And that changes where trust has to live. With code, you
+					can trust the agent after the fact — let it run, check the
+					result, undo if it&apos;s wrong. Out here there&apos;s no
+					after. The only place left to put your trust is before the
+					agent acts.
+				</p>
+				<p>
+					That&apos;s what makes these agents feel dangerous in a way
+					coding agents never did. It&apos;s not that they fail more.
+					It&apos;s that out here, failure is forever — so you
+					either trust it completely up front, or you never let it
+					act at all.
+				</p>
 			</Notes>
 		</>
 	);

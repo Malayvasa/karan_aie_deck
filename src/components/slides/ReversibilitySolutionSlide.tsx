@@ -636,9 +636,46 @@ function Body() {
 			</div>
 
 			<Notes>
-				The agent runs them in a sandbox first: a working copy of your real
-				tools. There it can take the irreversible action and watch exactly
-				what it would do. None of it touches the real world.
+				<p>
+					Let me be honest, Reversibility is the hard one. Real undo
+					the way git gives it to you, didn&apos;t exist outside of
+					software. So we come at it two ways.
+				</p>
+				<p>
+					Wherever an action has an inverse, we just undo it — recall
+					the send where that&apos;s possible, delete the draft it
+					created, strip the label it added. For all of that, undo is
+					real.
+				</p>
+				<p>
+					And for the actions you can&apos;t undo at all like hard
+					deletes that will make things disappear immediately, we
+					move the risk up front. The agent runs them in a sandbox
+					first: a working copy of your real tools. There it can take
+					the irreversible action and watch exactly what it would do.
+					None of it touches the real world.
+				</p>
+				<p>
+					That&apos;s the whole flip. In code, you undo a mistake
+					after it happens. Here, you catch it before it does.
+					Different timing, same result — a mistake that won&apos;t
+					stick.
+				</p>
+				<p>
+					Think about Yue again. The actions we could reverse,
+					we&apos;d just reverse. The ones we couldn&apos;t, the
+					agent would hit in the sandbox first — so she&apos;d have
+					seen &ldquo;about to permanently delete 200 emails&rdquo;
+					and stopped it, before any real emails were gone.
+				</p>
+				<p>
+					It&apos;s not done. Not yet. But across billions of agent
+					actions, we&apos;re learning which ones can be walked back
+					and which have to be caught up front, and both halves keep
+					getting sharper. And that&apos;s the last piece of trust —
+					even the thing the agent can&apos;t take back, you get to
+					see coming.
+				</p>
 			</Notes>
 		</>
 	);

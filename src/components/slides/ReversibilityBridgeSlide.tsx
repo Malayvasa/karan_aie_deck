@@ -211,11 +211,7 @@ function ReversibilityBridgeBody() {
 			</div>
 
 			<Notes>
-				Reversibility is the last primitive. In code, every action has an
-				undo — git revert, throwaway branches, preview deployments,
-				migration down-scripts. The agent can try something destructive
-				because there&apos;s a road back. Knowledge work doesn&apos;t have
-				that — sent is sent, deleted is gone.
+				Reversibility is the last primitive.
 			</Notes>
 		</>
 	);
