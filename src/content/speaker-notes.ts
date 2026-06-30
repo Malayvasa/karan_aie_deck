@@ -57,13 +57,13 @@ Code came with the support that agents needed. You've got the repo, the full his
 		section: "06 · The question",
 		script: `So how do we close that gap between coding agents and knowledge-work agents?
 
-We think it comes down to six primitives. Coding got all six of them for free, and knowledge work has none. So that's what we have to build.`,
+We think it comes down to six primitives. Coding got all six of them for free, and knowledge work has none. So that's what we have to build.
+
+First is centralization.`,
 	},
 	codebaseBento: {
 		section: "07 · Foundation · Centralization",
-		script: `First is centralization.
-
-Coding agents work so well partly because they're right next to the source of truth. They have the what, the why, and the how. You give them the repo, the infrastructure as code, you close the loop, and you let them cook. The agent starts with everything that it needs in one place.`,
+		script: `Coding agents work so well partly because they're right next to the source of truth. They have the what, the why, and the how. You give them the repo, the infrastructure as code, you close the loop, and you let them cook. The agent starts with everything that it needs in one place.`,
 	},
 	knowledgeFragments: {
 		section: "08 · Foundation · Centralization",
@@ -83,11 +83,13 @@ Coding agents work so well partly because they're right next to the source of tr
 	},
 	historyBridge: {
 		section: "10 · Foundation · History",
-		script: `The next thing the agent needs: a sense of history — the ability to look back. In code, you get it for free. Git keeps a record of every change ever made. So the agent can always look back and ask: how did we get here? What did we try before that worked, and what didn't?`,
+		script: `The next thing the agent needs: a sense of history — the ability to look back.`,
 	},
 	gitHistory: {
 		section: "10 · Foundation · History",
-		script: `Think about the kind of thing you actually ask an agent:
+		script: `In code, you get it for free. Git keeps a record of every change ever made. So the agent can always look back and ask: how did we get here? What did we try before that worked, and what didn't?
+
+Think about the kind of thing you actually ask an agent:
 
 > "We had to revert this change once, and it was a pain to pull off. Go find how we did it last time, and do that again."
 
