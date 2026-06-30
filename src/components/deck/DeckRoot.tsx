@@ -6,6 +6,7 @@ import { CodebaseBentoSlide } from "~/components/slides/CodebaseBentoSlide";
 import { CodingArcSlide } from "~/components/slides/CodingArcSlide";
 import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
 import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
+import { HistoryBridgeSlide } from "~/components/slides/HistoryBridgeSlide";
 import { KnowledgeFragmentsSlide } from "~/components/slides/KnowledgeFragmentsSlide";
 import { TitleSlide } from "~/components/slides/TitleSlide";
 import { ToolCallsSlide } from "~/components/slides/ToolCallsSlide";
@@ -50,6 +51,7 @@ export function DeckRoot() {
 			<BridgeSlide />
 			<CodebaseBentoSlide />
 			<KnowledgeFragmentsSlide />
+			<HistoryBridgeSlide />
 		</Deck>
 	);
 }
