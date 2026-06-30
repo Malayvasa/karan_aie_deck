@@ -11,6 +11,9 @@ import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
 import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
 import { EventLogSlide } from "~/components/slides/EventLogSlide";
 import { GitHistorySlide } from "~/components/slides/GitHistorySlide";
+import { GovernanceInCodeSlide } from "~/components/slides/GovernanceInCodeSlide";
+import { GovernanceInKnowledgeWorkSlide } from "~/components/slides/GovernanceInKnowledgeWorkSlide";
+import { GovernanceSolutionSlide } from "~/components/slides/GovernanceSolutionSlide";
 import { HistoryBridgeSlide } from "~/components/slides/HistoryBridgeSlide";
 import { KnowledgeFragmentsSlide } from "~/components/slides/KnowledgeFragmentsSlide";
 import { KnowledgeHistoryGapSlide } from "~/components/slides/KnowledgeHistoryGapSlide";
@@ -70,6 +73,9 @@ export function DeckRoot() {
 			<VerificationBridgeSlide />
 			<VerificationInCodeSlide />
 			<VerificationInKnowledgeWorkSlide />
+			<GovernanceInCodeSlide />
+			<GovernanceInKnowledgeWorkSlide />
+			<GovernanceSolutionSlide />
 		</Deck>
 	);
 }
