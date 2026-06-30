@@ -341,3 +341,29 @@
 		opacity: 1;
 	}
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Spectacle presenter mode — shrink the notes column, grow the slide preview.
+ * Spectacle ships its presenter view at a hardcoded 50/50 (notes / slide
+ * preview) via styled-components, with no theme override. Two rules:
+ *
+ * 1. Resize the columns via the PresenterDeckContainer (found by `:has()`-ing
+ *    Spectacle's stable `data-testid="use-browser-tab-text"` inside the notes
+ *    column — survives styled-components hash changes).
+ * 2. Resize the slide preview backdrops, which Spectacle sets via inline
+ *    `width: 50vw; left: 50vw`. The preview slides fit-to-backdrop, so the
+ *    actual rendered slide only grows once the backdrop grows.
+ *
+ * The two ratios MUST agree: columns 32%/68% ↔ backdrop width 68vw / left 32vw.
+ * ───────────────────────────────────────────────────────────────────────────── */
+:where(div):has(> :first-child [data-testid="use-browser-tab-text"]) > :nth-child(1) {
+	width: 32% !important;
+	min-width: 320px;
+}
+:where(div):has(> :first-child [data-testid="use-browser-tab-text"]) > :nth-child(2) {
+	width: 68% !important;
+}
+[style*="width: 50vw"][style*="left: 50vw"] {
+	width: 68vw !important;
+	left: 32vw !important;
+}

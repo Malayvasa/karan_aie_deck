@@ -134,9 +134,21 @@ function StepStatus({
 		<div
 			style={{
 				borderLeft: `4px solid ${accent}`,
-				background: "rgba(255,255,255,0.04)",
+				// Solid bg (not 4% white over dark) so scrolling script text
+				// behind the sticky panel doesn't bleed through. Matches the
+				// presenter column background and adds a soft inset bottom
+				// border for separation.
+				background: "#181818",
+				boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.08)",
 				borderRadius: 6,
 				padding: "0.6em 0.8em",
+				// Pin to the top of Spectacle's scrolling NotesContainer so
+				// the step status stays visible no matter how long the script
+				// gets. Spectacle's NotesContainer has overflow-y: scroll, so
+				// sticky here resolves to that container's top.
+				position: "sticky",
+				top: 0,
+				zIndex: 2,
 				display: "flex",
 				flexDirection: "column",
 				gap: "0.25em",
