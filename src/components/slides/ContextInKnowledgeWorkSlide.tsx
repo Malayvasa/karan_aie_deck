@@ -1388,11 +1388,19 @@ function SalesforceCard() {
 					return (
 						<div
 							key={s.name}
-							className="relative flex-1 truncate px-1 py-1 text-center text-[8.5px] font-bold uppercase"
+							className="relative px-1 py-1 text-center text-[8.5px] font-bold uppercase"
 							style={{
 								background: bg,
 								color,
 								letterSpacing: "0.04em",
+								// Only the active stage shows a label — let it grow
+								// to take the rest of the row so "Negotiate" isn't
+								// truncated. Other stages are chevron indicators at
+								// a fixed compact width.
+								flex: s.active ? "1 1 auto" : "0 0 auto",
+								minWidth: s.active ? 0 : 26,
+								whiteSpace: "nowrap",
+								overflow: "hidden",
 								clipPath:
 									i === stages.length - 1
 										? "polygon(0 0, 100% 0, 100% 100%, 0 100%, 6px 50%)"
