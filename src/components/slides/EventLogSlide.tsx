@@ -312,9 +312,9 @@ const C = {
 	textSecondary: "#8b949e",
 	textMuted: "#6e7681",
 	textVeryMuted: "#484f58",
-	canvas: "#0d1117",
-	terminal: "#0a0c10",
-	header: "#161b22",
+	canvas: "#000000",
+	terminal: "#000000",
+	header: "#0a0a0a",
 	border: "#21262d",
 	rowSep: "rgba(255,255,255,0.04)",
 	blue: "#79c0ff",
@@ -326,15 +326,78 @@ const C = {
 
 const PANEL_W = 980;
 const PANEL_H = 560;
-const HEADER_H = 46;
-const BODY_H = PANEL_H - HEADER_H;
+// No GitHub-style header anymore; the list takes the full panel height.
+const BODY_H = PANEL_H;
 const ROW_H = 36;
 const VISIBLE_COUNT = Math.floor(BODY_H / ROW_H);
-const EMIT_INTERVAL_MS = 240;
+const EMIT_INTERVAL_MS = 320;
 const BASE_MS =
 	9 * 3600 * 1000 + 42 * 60 * 1000 + 15 * 1000 + 842;
 
-type EntryWithId = LogEntry & { _id: string };
+// Which model made the tool call. Mixed across the log so it reads like a
+// real multi-agent fleet calling through Composio.
+type AgentKey =
+	| "opus48"
+	| "opus47"
+	| "sonnet46"
+	| "haiku45"
+	| "gpt55"
+	| "gemini25"
+	| "deepseek"
+	| "grok";
+
+const AGENTS: Record<AgentKey, { logo: string; label: string }> = {
+	opus48: { logo: "/images/clients/claude.svg", label: "Opus 4.8" },
+	opus47: { logo: "/images/clients/claude.svg", label: "Opus 4.7" },
+	sonnet46: { logo: "/images/clients/claude.svg", label: "Sonnet 4.6" },
+	haiku45: { logo: "/images/clients/claude.svg", label: "Haiku 4.5" },
+	gpt55: {
+		logo: "https://logos.composio.dev/api/openai?theme=dark",
+		label: "GPT 5.5",
+	},
+	gemini25: { logo: "/images/clients/gemini.svg", label: "Gemini 2.5" },
+	deepseek: { logo: "/images/clients/deepseek.svg", label: "DeepSeek R1" },
+	grok: { logo: "/images/clients/grok.svg", label: "Grok 3" },
+};
+
+// Position-indexed assignment so each ENTRY consistently gets the same agent
+// when the list cycles.
+const AGENT_FOR_ENTRY: AgentKey[] = [
+	"opus48",
+	"gpt55",
+	"sonnet46",
+	"opus47",
+	"gemini25",
+	"opus48",
+	"haiku45",
+	"opus47",
+	"gpt55",
+	"opus48",
+	"deepseek",
+	"sonnet46",
+	"opus47",
+	"gpt55",
+	"haiku45",
+	"opus48",
+	"sonnet46",
+	"grok",
+	"opus47",
+	"gpt55",
+	"opus48",
+	"gemini25",
+	"sonnet46",
+	"opus47",
+	"gpt55",
+	"deepseek",
+	"opus48",
+	"sonnet46",
+	"gemini25",
+	"opus47",
+	"gpt55",
+	"opus48",
+];
+
+type EntryWithId = LogEntry & { _id: string; agentKey: AgentKey };
 
 function makeTimestamp(seq: number): string {
 	const t = BASE_MS + seq * EMIT_INTERVAL_MS;
@@ -360,13 +423,10 @@ function Body() {
 		<>
 			<div className="flex flex-1 items-center justify-center">
 				<motion.div
-					className="relative overflow-hidden rounded-xl border shadow-2xl"
+					className="relative"
 					style={{
 						width: PANEL_W,
 						height: PANEL_H,
-						background: C.canvas,
-						borderColor: C.border,
-						boxShadow: "0 24px 60px rgba(0,0,0,0.55)",
 					}}
 					initial={{ opacity: 0, y: 16 }}
 					animate={
@@ -379,7 +439,6 @@ function Body() {
 						ease: [0.22, 1, 0.36, 1],
 					}}
 				>
-					<Header />
 					<ScrollList active={isSlideActive} />
 				</motion.div>
 			</div>
@@ -393,116 +452,64 @@ function Body() {
 	);
 }
 
-function Header() {
+function LiveBadge() {
 	return (
 		<div
-			className="flex items-center px-5"
+			className="absolute"
 			style={{
-				height: HEADER_H,
-				background: C.header,
-				borderBottom: `1px solid ${C.border}`,
+				top: -28,
+				right: 4,
+				display: "flex",
+				alignItems: "center",
+				gap: 6,
 				fontFamily: "var(--font-jetbrains-mono), monospace",
 			}}
 		>
-			<div className="flex items-center gap-2">
-				<img
-					src="/images/clients/composio.svg"
-					width={16}
-					height={16}
-					alt=""
-					onError={(e) => {
-						const t = e.currentTarget;
-						t.src = `https://logos.composio.dev/api/composio?theme=dark`;
-					}}
-					style={{ display: "block" }}
-				/>
-				<span
-					style={{
-						color: C.textPrimary,
-						fontSize: 13,
-						fontWeight: 600,
-					}}
-				>
-					composio
-				</span>
-				<span style={{ color: C.textMuted, fontSize: 12 }}>/</span>
-				<span style={{ color: C.textSecondary, fontSize: 12 }}>
-					event log
-				</span>
-			</div>
-
-			<div className="flex-1" />
-
-			<div className="flex items-center gap-5">
-				<div className="flex items-center gap-1.5">
-					<motion.span
-						style={{
-							width: 6,
-							height: 6,
-							borderRadius: 9999,
-							background: C.green,
-						}}
-						animate={{ opacity: [0.35, 1, 0.35] }}
-						transition={{
-							duration: 1.4,
-							repeat: Infinity,
-							ease: "linear",
-						}}
-					/>
-					<span
-						style={{
-							color: C.green,
-							fontSize: 10,
-							fontWeight: 600,
-							letterSpacing: "0.05em",
-						}}
-					>
-						LIVE
-					</span>
-				</div>
-				<div
-					style={{
-						color: C.textSecondary,
-						fontSize: 11,
-					}}
-				>
-					<span style={{ color: C.textPrimary, fontWeight: 600 }}>
-						1,247
-					</span>{" "}
-					events / min
-				</div>
-				<div
-					style={{
-						color: C.textVeryMuted,
-						fontSize: 11,
-					}}
-				>
-					last 60m
-				</div>
-			</div>
+			<motion.span
+				style={{
+					width: 6,
+					height: 6,
+					borderRadius: 9999,
+					background: C.green,
+				}}
+				animate={{ opacity: [0.35, 1, 0.35] }}
+				transition={{
+					duration: 1.4,
+					repeat: Infinity,
+					ease: "linear",
+				}}
+			/>
+			<span
+				style={{
+					color: C.green,
+					fontSize: 10,
+					fontWeight: 600,
+					letterSpacing: "0.05em",
+				}}
+			>
+				LIVE
+			</span>
 		</div>
 	);
 }
 
 function ScrollList({ active }: { active: boolean }) {
-	const [visible, setVisible] = useState<EntryWithId[]>(() =>
-		ENTRIES.slice(0, VISIBLE_COUNT).map((e, i) => ({
-			...e,
-			_id: `init-${i}`,
-		})),
-	);
-	const counterRef = useRef(VISIBLE_COUNT);
+	const [visible, setVisible] = useState<EntryWithId[]>([]);
+	const counterRef = useRef(0);
 
 	useEffect(() => {
 		if (!active) return;
 
 		const interval = window.setInterval(() => {
-			const next = ENTRIES[counterRef.current % ENTRIES.length];
+			const entryIdx = counterRef.current % ENTRIES.length;
+			const next = ENTRIES[entryIdx];
 			const seq = counterRef.current + 1;
 			const newEntry: EntryWithId = {
 				...next,
 				time: makeTimestamp(seq),
 				_id: `e-${seq}`,
+				agentKey:
+					AGENT_FOR_ENTRY[entryIdx % AGENT_FOR_ENTRY.length],
 			};
 			setVisible((prev) => [
 				newEntry,
@@ -528,11 +535,11 @@ function ScrollList({ active }: { active: boolean }) {
 					<motion.div
 						key={entry._id}
 						layout
-						initial={{ opacity: 0, scale: 0.97 }}
-						animate={{ opacity: 1, scale: 1 }}
-						exit={{ opacity: 0 }}
+						initial={{ opacity: 0, y: -6, scale: 0.985 }}
+						animate={{ opacity: 1, y: 0, scale: 1 }}
+						exit={{ opacity: 0, y: 8 }}
 						transition={{
-							duration: 0.16,
+							duration: 0.32,
 							ease: [0.22, 1, 0.36, 1],
 						}}
 						style={{ willChange: "transform, opacity" }}
@@ -562,7 +569,7 @@ function ScrollList({ active }: { active: boolean }) {
 	);
 }
 
-function LogRow({ entry }: { entry: LogEntry }) {
+function LogRow({ entry }: { entry: EntryWithId }) {
 	const statusColor =
 		entry.status === "ok"
 			? C.green
@@ -576,6 +583,7 @@ function LogRow({ entry }: { entry: LogEntry }) {
 				? X
 				: Loader2;
 	const statusBg = `${statusColor}1A`; // ~10% alpha
+	const agent = AGENTS[entry.agentKey];
 
 	return (
 		<div
@@ -610,6 +618,35 @@ function LogRow({ entry }: { entry: LogEntry }) {
 						entry.status === "run" ? "animate-spin" : undefined
 					}
 				/>
+			</div>
+
+			{/* Agent that made the tool call */}
+			<div
+				className="flex items-center"
+				style={{
+					width: 108,
+					gap: 6,
+					flexShrink: 0,
+				}}
+			>
+				<img
+					src={agent.logo}
+					width={13}
+					height={13}
+					alt=""
+					style={{ display: "block", flexShrink: 0 }}
+				/>
+				<span
+					style={{
+						color: C.textPrimary,
+						fontSize: 10.5,
+						whiteSpace: "nowrap",
+						overflow: "hidden",
+						textOverflow: "ellipsis",
+					}}
+				>
+					{agent.label}
+				</span>
 			</div>
 
 			<img
