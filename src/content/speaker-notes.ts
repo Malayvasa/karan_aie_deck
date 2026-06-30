@@ -167,6 +167,18 @@ And here's the thing — every check from the last slide would have passed. The 
 
 That's the gap. In code, something tells you when you're wrong. Here, the internet had to tell me I was wrong.`,
 	},
+	verificationSolution: {
+		section: "18 · Build · Verification",
+		script: `So we build the check that was missing.
+
+The problem in the above thread wasn't the outreach was wrong — it was that it went out before anyone could tell. So the fix is simple: catch it before it's real.
+
+Two ways we do that. One — before the agent sends anything, it checks the draft against emails you've actually sent before. Is this one as good as those? That's the goodness test that didn't exist before.
+
+Two — for anything destructive, it doesn't touch the real world first. It runs against a sandbox with mock data, as many times as it needs, and watches what would happen. The blast radius lands on a copy, not on your candidates.
+
+Put those two together, and you've got something knowledge work never had — a way for the agent to check its own work before it's real. It can finally close its own loop, instead of stopping to wait for you. And that's what lets you trust it to act — without`,
+	},
 	governanceBridge: {
 		section: "19 · Trust · Governance",
 		script: `Next thing, the agent needs is governance. Building trust is controlling what the agent can touch in the first place.`,

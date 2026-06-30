@@ -1,10 +1,6 @@
 "use client";
 
 import { Slide } from "spectacle";
-import {
-	PrimitiveBadge,
-	type PrimitiveKey,
-} from "~/components/slides/lego/PrimitiveBadge";
 import { cn } from "~/lib/utils";
 
 /**
@@ -17,13 +13,17 @@ import { cn } from "~/lib/utils";
  * CONTENT container, not the slide. Set `padded={false}` to opt a slide out and
  * manage its own spacing (e.g. a full-bleed image), then drop a <SlideContent>
  * around any foreground that should respect the margin.
+ *
+ * NOTE: the "you are here" primitive lego brick is no longer rendered here.
+ * It lives in DeckRoot's `template` (one persistent badge across slides) so it
+ * doesn't re-animate in on every slide change. To put a slide in a primitive
+ * section, add its index to SLIDE_PRIMITIVES in DeckRoot.tsx.
  */
 export function DeckSlide({
 	children,
 	className,
 	stageClassName,
 	padded = true,
-	primitive,
 }: {
 	children: React.ReactNode;
 	/** Applied to the inner content container (the margined area). */
@@ -31,9 +31,6 @@ export function DeckSlide({
 	/** Applied to the full-bleed stage. */
 	stageClassName?: string;
 	padded?: boolean;
-	/** When set, renders the primitive's lego brick at the top center as a
-	 *  "you are here" indicator. */
-	primitive?: PrimitiveKey;
 }) {
 	return (
 		<Slide backgroundColor="var(--background)" padding={0}>
@@ -43,7 +40,6 @@ export function DeckSlide({
 					stageClassName,
 				)}
 			>
-				{primitive ? <PrimitiveBadge primitive={primitive} /> : null}
 				{padded ? (
 					<SlideContent className={className}>{children}</SlideContent>
 				) : (

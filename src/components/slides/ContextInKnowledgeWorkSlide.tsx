@@ -171,7 +171,7 @@ const BADGE_AFTER_ARC = 0.05;
 
 export function ContextInKnowledgeWorkSlide() {
 	return (
-		<DeckSlide primitive="context">
+		<DeckSlide>
 			<ContextInKnowledgeWorkBody />
 		</DeckSlide>
 	);

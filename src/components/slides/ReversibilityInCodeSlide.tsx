@@ -136,7 +136,7 @@ const yFor = (lane: number) => LANE_Y[lane];
 
 export function ReversibilityInCodeSlide() {
 	return (
-		<DeckSlide primitive="reversibility">
+		<DeckSlide>
 			<Body />
 		</DeckSlide>
 	);

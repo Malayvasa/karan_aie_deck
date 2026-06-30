@@ -181,7 +181,7 @@ function claudeAnchor(idx: number) {
 
 export function KnowledgeHistoryGapSlide() {
 	return (
-		<DeckSlide primitive="history">
+		<DeckSlide>
 			<Body />
 		</DeckSlide>
 	);

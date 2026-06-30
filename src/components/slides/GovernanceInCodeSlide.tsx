@@ -81,7 +81,7 @@ const REQUIREMENTS: Requirement[] = [
 
 export function GovernanceInCodeSlide() {
 	return (
-		<DeckSlide primitive="governance">
+		<DeckSlide>
 			<GovernanceInCodeBody />
 		</DeckSlide>
 	);

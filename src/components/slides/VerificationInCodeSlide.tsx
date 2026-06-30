@@ -115,7 +115,7 @@ const SUCCESS_COUNT = CHECKS.filter((c) => c.finalState === "success").length;
 
 export function VerificationInCodeSlide() {
 	return (
-		<DeckSlide primitive="verification">
+		<DeckSlide>
 			<VerificationInCodeBody />
 		</DeckSlide>
 	);

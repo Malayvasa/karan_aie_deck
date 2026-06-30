@@ -205,7 +205,7 @@ const notifScaleTimes = [
 
 export function ReversibilityInKnowledgeWorkSlide() {
 	return (
-		<DeckSlide primitive="reversibility">
+		<DeckSlide>
 			<Body />
 		</DeckSlide>
 	);

@@ -108,7 +108,7 @@ const POLICIES: Array<{
 
 export function GovernanceSolutionSlide() {
 	return (
-		<DeckSlide primitive="governance">
+		<DeckSlide>
 			<GovernanceSolutionBody />
 		</DeckSlide>
 	);

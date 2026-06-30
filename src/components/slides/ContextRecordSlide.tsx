@@ -111,7 +111,7 @@ const KICKOFF_DELAY = 0.6;
 
 export function ContextRecordSlide() {
 	return (
-		<DeckSlide primitive="context">
+		<DeckSlide>
 			<Body />
 		</DeckSlide>
 	);

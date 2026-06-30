@@ -448,7 +448,7 @@ function Composer() {
 
 export function ReversibilitySolutionSlide() {
 	return (
-		<DeckSlide primitive="reversibility">
+		<DeckSlide>
 			<Body />
 		</DeckSlide>
 	);

@@ -8,7 +8,7 @@ export const STUD_W = 34;
 export const STUD_H = 10;
 export const STUD_R = 3;
 export const BLOCK_H = 52;
-export const LABEL_FONT_SIZE = 14;
+export const LABEL_FONT_SIZE = 17;
 export const BODY_R = 5;
 export const TOP_R = 5;
 export const PEEK = 0;
@@ -234,7 +234,7 @@ export function LegoBrick({
 					{Icon ? (
 						<Icon
 							aria-hidden
-							size={15}
+							size={18}
 							strokeWidth={2.4}
 							className="shrink-0"
 							style={{ filter: iconFilter }}
