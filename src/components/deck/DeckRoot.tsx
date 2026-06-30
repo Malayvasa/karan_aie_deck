@@ -20,6 +20,10 @@ import { GovernanceSolutionSlide } from "~/components/slides/GovernanceSolutionS
 import { HistoryBridgeSlide } from "~/components/slides/HistoryBridgeSlide";
 import { KnowledgeFragmentsSlide } from "~/components/slides/KnowledgeFragmentsSlide";
 import { KnowledgeHistoryGapSlide } from "~/components/slides/KnowledgeHistoryGapSlide";
+import { ReversibilityBridgeSlide } from "~/components/slides/ReversibilityBridgeSlide";
+import { ReversibilityInCodeSlide } from "~/components/slides/ReversibilityInCodeSlide";
+import { ReversibilityInKnowledgeWorkSlide } from "~/components/slides/ReversibilityInKnowledgeWorkSlide";
+import { ReversibilitySolutionSlide } from "~/components/slides/ReversibilitySolutionSlide";
 import { TitleSlide } from "~/components/slides/TitleSlide";
 import { ToolCallsSlide } from "~/components/slides/ToolCallsSlide";
 import { VerificationBridgeSlide } from "~/components/slides/VerificationBridgeSlide";
@@ -81,6 +85,10 @@ export function DeckRoot() {
 			<GovernanceInCodeSlide />
 			<GovernanceInKnowledgeWorkSlide />
 			<GovernanceSolutionSlide />
+			<ReversibilityBridgeSlide />
+			<ReversibilityInCodeSlide />
+			<ReversibilityInKnowledgeWorkSlide />
+			<ReversibilitySolutionSlide />
 			<DiagnosisSlide />
 		</Deck>
 	);

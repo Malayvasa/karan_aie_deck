@@ -297,7 +297,7 @@ function dimKeyframes(thisBranchId: string) {
 
 export function GitHistorySlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="history">
 			<Body />
 		</DeckSlide>
 	);
