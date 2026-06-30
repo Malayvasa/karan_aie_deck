@@ -7,6 +7,7 @@ import { CodingArcSlide } from "~/components/slides/CodingArcSlide";
 import { ContextBridgeSlide } from "~/components/slides/ContextBridgeSlide";
 import { ContextInCodeSlide } from "~/components/slides/ContextInCodeSlide";
 import { ContextInKnowledgeWorkSlide } from "~/components/slides/ContextInKnowledgeWorkSlide";
+import { ContextRecordSlide } from "~/components/slides/ContextRecordSlide";
 import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
 import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
 import { EventLogSlide } from "~/components/slides/EventLogSlide";
@@ -67,6 +68,7 @@ export function DeckRoot() {
 			<ContextBridgeSlide />
 			<ContextInCodeSlide />
 			<ContextInKnowledgeWorkSlide />
+			<ContextRecordSlide />
 			<VerificationBridgeSlide />
 			<VerificationInCodeSlide />
 			<VerificationInKnowledgeWorkSlide />
