@@ -40,6 +40,7 @@ import {
 import { useContext, useEffect, useState, type ReactNode } from "react";
 import { Notes, SlideContext } from "spectacle";
 import { DeckSlide } from "~/components/deck/DeckSlide";
+import { useStepMotion } from "~/components/deck/useStepMotion";
 
 const LOGO = (slug: string) => `https://logos.composio.dev/api/${slug}`;
 const SANS =
@@ -79,6 +80,17 @@ const FIRST_TAB_DELAY = 0.25;
 // so each tab gets a clear beat before the next one takes over.
 const PHASE2_CYCLE = 2.2;
 
+// Step 0 — the five tabs collapse into a single Composio tab and the toolkits
+// dashboard fills the (expanded) content area below.
+const COMPOSIO_TAB = {
+	slug: "composio",
+	title: "Toolkits — Composio Platform",
+	url: "platform.composio.dev/test_org_new/composio/toolkits",
+} as const;
+
+const COMPACT_CONTENT_H = 280;
+const EXPANDED_CONTENT_H = 540;
+
 // Chrome dark-mode palette so the navbar reads as "an actual browser".
 const C = {
 	titleBg: "#272A2D",
@@ -106,13 +118,19 @@ export function KnowledgeFragmentsSlide() {
 
 function KnowledgeFragmentsBody() {
 	const { isSlideActive } = useContext(SlideContext);
+	const { reached, placeholder } = useStepMotion(1);
+	const collapsed = reached(0);
 	const [enteredCount, setEnteredCount] = useState(0);
 	const [activeIdx, setActiveIdx] = useState(-1);
 
 	useEffect(() => {
-		if (!isSlideActive) {
-			setEnteredCount(0);
-			setActiveIdx(-1);
+		if (!isSlideActive || collapsed) {
+			// Once the audience advances the step, freeze the loop — the tabs
+			// are about to be replaced by the Composio tab.
+			if (!isSlideActive) {
+				setEnteredCount(0);
+				setActiveIdx(-1);
+			}
 			return;
 		}
 		let cancelled = false;
@@ -152,19 +170,23 @@ function KnowledgeFragmentsBody() {
 			timers.forEach(clearTimeout);
 			if (cycleInterval) clearInterval(cycleInterval);
 		};
-	}, [isSlideActive]);
+	}, [isSlideActive, collapsed]);
 
 	const active = activeIdx >= 0 ? TABS[activeIdx] : null;
 
 	return (
 		<>
+			{placeholder}
 			<div
 				className="relative flex flex-1 items-center justify-center"
 				style={{ fontFamily: SANS }}
 			>
-				<div
+				<motion.div
 					className="overflow-hidden rounded-lg shadow-[0_30px_60px_rgba(0,0,0,0.55),0_10px_24px_rgba(0,0,0,0.4)]"
 					style={{ width: 1100, background: C.contentBg }}
+					initial={false}
+					animate={{ y: collapsed ? -50 : 0 }}
+					transition={{ duration: 0.75, ease: [0.34, 1.12, 0.6, 1] }}
 				>
 					{/* macOS title bar + tab strip */}
 					<div
@@ -203,15 +225,17 @@ function KnowledgeFragmentsBody() {
 						<div className="flex items-end gap-[2px]">
 							{TABS.map((tab, i) => {
 								const entered = enteredCount > i;
-								const isActive = activeIdx === i;
+								const isActive = !collapsed && activeIdx === i;
 								return (
 									<motion.div
 										key={tab.slug}
 										initial={{ width: 0, opacity: 0 }}
 										animate={
-											entered
-												? { width: 220, opacity: 1 }
-												: { width: 0, opacity: 0 }
+											collapsed
+												? { width: 0, opacity: 0 }
+												: entered
+													? { width: 220, opacity: 1 }
+													: { width: 0, opacity: 0 }
 										}
 										transition={{
 											duration: 0.45,
@@ -223,6 +247,30 @@ function KnowledgeFragmentsBody() {
 									</motion.div>
 								);
 							})}
+							{/* Composio tab — grows in once the five collapse. */}
+							<motion.div
+								initial={{ width: 0, opacity: 0 }}
+								animate={
+									collapsed
+										? { width: 260, opacity: 1 }
+										: { width: 0, opacity: 0 }
+								}
+								transition={{
+									duration: 0.55,
+									ease: [0.34, 1.18, 0.6, 1],
+									delay: collapsed ? 0.35 : 0,
+								}}
+								style={{ overflow: "hidden", flexShrink: 0 }}
+							>
+								<ChromeTab
+									tab={{
+										slug: COMPOSIO_TAB.slug,
+										title: COMPOSIO_TAB.title,
+										url: COMPOSIO_TAB.url,
+									}}
+									active
+								/>
+							</motion.div>
 							{/* + new tab button */}
 							<motion.button
 								className="ml-1 mb-1 flex size-7 items-center justify-center rounded-full"
@@ -260,7 +308,7 @@ function KnowledgeFragmentsBody() {
 							<Lock size={13} style={{ color: C.urlMuted }} />
 							<AnimatePresence mode="wait">
 								<motion.div
-									key={active?.url ?? "blank"}
+									key={collapsed ? COMPOSIO_TAB.url : (active?.url ?? "blank")}
 									initial={{ opacity: 0, y: 3 }}
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: -3 }}
@@ -268,7 +316,9 @@ function KnowledgeFragmentsBody() {
 									className="flex-1 truncate font-mono text-[11px]"
 									style={{ color: C.urlText }}
 								>
-									{active ? (
+									{collapsed ? (
+										<UrlText url={COMPOSIO_TAB.url} />
+									) : active ? (
 										<UrlText url={active.url} />
 									) : (
 										<span style={{ color: C.urlMuted }}>
@@ -290,17 +340,47 @@ function KnowledgeFragmentsBody() {
 						<NavButton icon={MoreVertical} dim />
 					</div>
 
-					{/* Content area — empty page, fading off at the bottom so the
-					    browser dissolves into the slide. */}
-					<div
+					{/* Content area — when collapsed, expands and shows the real
+					    Composio toolkits dashboard. */}
+					<motion.div
 						className="relative overflow-hidden"
-						style={{
-							height: 280,
-							background: "#000000",
+						initial={false}
+						animate={{
+							height: collapsed ? EXPANDED_CONTENT_H : COMPACT_CONTENT_H,
 						}}
+						transition={{ duration: 0.75, ease: [0.34, 1.12, 0.6, 1] }}
+						style={{ background: "#000000" }}
 					>
 						<AnimatePresence mode="wait">
-							{active ? (
+							{collapsed ? (
+								<motion.div
+									key="composio-dashboard"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{ duration: 0.5, delay: 0.2 }}
+									className="absolute inset-0 overflow-hidden"
+								>
+									{/* The captured dashboard was rendered at a desktop
+									    viewport (~1440px). Let the iframe think it's
+									    still that wide and scale it down so the layout
+									    proportions match the original. */}
+									<iframe
+										src="/composio-dashboard.html"
+										title="Composio toolkits"
+										style={{
+											width: 1600,
+											height: 900,
+											border: 0,
+											display: "block",
+											transform: `scale(${1100 / 1600})`,
+											transformOrigin: "top left",
+											pointerEvents: "none",
+										}}
+										sandbox="allow-same-origin"
+									/>
+								</motion.div>
+							) : active ? (
 								<motion.div
 									key={active.slug}
 									initial={{ opacity: 0 }}
@@ -313,16 +393,30 @@ function KnowledgeFragmentsBody() {
 								</motion.div>
 							) : null}
 						</AnimatePresence>
-						{/* Black fade — only the top sliver shows; rest dissolves. */}
+						{/* Black fade. Compact state (five tabs) — long gentle fade.
+						    Collapsed state (dashboard) — only the very bottom fades
+						    so the toolkit grid dissolves off the slide instead of
+						    cutting against a hard edge. */}
 						<div
-							className="absolute inset-0"
+							className="pointer-events-none absolute inset-0"
 							style={{
-								background:
-									"linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 25%, #000000 95%)",
+								zIndex: 10,
+								background: collapsed
+									? "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 75%, rgba(0,0,0,1) 92%, rgba(0,0,0,1) 100%)"
+									: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 25%, #000000 95%)",
 							}}
 						/>
-					</div>
-				</div>
+						{/* Belt-and-suspenders cover for any sub-pixel sliver at the
+						    very bottom of the content area — kills any artifact from
+						    rounded corners or iframe stacking. */}
+						{collapsed ? (
+							<div
+								className="pointer-events-none absolute inset-x-0 bottom-0"
+								style={{ height: 8, background: "#000000", zIndex: 11 }}
+							/>
+						) : null}
+					</motion.div>
+				</motion.div>
 			</div>
 
 			<Notes>
@@ -340,7 +434,7 @@ function ChromeTab({
 	tab,
 	active,
 }: {
-	tab: (typeof TABS)[number];
+	tab: { slug: string; title: string; url: string };
 	active: boolean;
 }) {
 	return (
@@ -406,6 +500,9 @@ function AppLogo({
 	size: number;
 	round?: number;
 }) {
+	// Composio's own logo ships as dark-on-transparent; force it white so it
+	// reads clearly inside the dark chrome tab.
+	const isComposio = slug === "composio";
 	return (
 		// eslint-disable-next-line @next/next/no-img-element
 		<img
@@ -419,6 +516,7 @@ function AppLogo({
 				borderRadius: round,
 				display: "block",
 				flexShrink: 0,
+				filter: isComposio ? "brightness(0) invert(1)" : undefined,
 			}}
 		/>
 	);
