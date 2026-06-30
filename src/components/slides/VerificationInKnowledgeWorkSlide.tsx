@@ -589,7 +589,7 @@ function GmailNotification({
 }
 
 // Logo CDN used elsewhere in the deck (see KnowledgeFragmentsSlide).
-const COMPOSIO_LOGO = (slug: string) => `https://logos.composio.dev/api/${slug}`;
+const COMPOSIO_LOGO = (slug: string) => `/logos/${slug}.svg`;
 
 function GmailIcon({ size = 36 }: { size?: number }) {
 	return (

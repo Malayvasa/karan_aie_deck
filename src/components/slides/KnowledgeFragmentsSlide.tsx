@@ -43,7 +43,7 @@ import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 
-const LOGO = (slug: string) => `https://logos.composio.dev/api/${slug}`;
+const LOGO = (slug: string) => `/logos/${slug}.svg`;
 const SANS =
 	'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 

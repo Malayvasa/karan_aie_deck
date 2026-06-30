@@ -353,7 +353,7 @@ const AGENTS: Record<AgentKey, { logo: string; label: string }> = {
 	sonnet46: { logo: "/images/clients/claude.svg", label: "Sonnet 4.6" },
 	haiku45: { logo: "/images/clients/claude.svg", label: "Haiku 4.5" },
 	gpt55: {
-		logo: "https://logos.composio.dev/api/openai?theme=dark",
+		logo: "/logos/openai-dark.svg",
 		label: "GPT 5.5",
 	},
 	gemini25: { logo: "/images/clients/gemini.svg", label: "Gemini 2.5" },
@@ -649,7 +649,7 @@ function LogRow({ entry }: { entry: EntryWithId }) {
 			</div>
 
 			<img
-				src={`https://logos.composio.dev/api/${entry.slug}?theme=dark`}
+				src={`/logos/${entry.slug}-dark.svg`}
 				width={16}
 				height={16}
 				alt=""

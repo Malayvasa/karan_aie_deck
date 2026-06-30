@@ -464,7 +464,7 @@ function TerminalHeader({ config }: { config: AppConfig }) {
 				style={{ paddingRight: 38 }}
 			>
 				<img
-					src={`https://logos.composio.dev/api/${config.slug}?theme=light`}
+					src={`/logos/${config.slug}-light.svg`}
 					width={11}
 					height={11}
 					alt=""

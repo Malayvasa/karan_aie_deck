@@ -284,7 +284,7 @@ function MiniLogRow({ entry }: { entry: EntryWithId }) {
 				<Check size={8} color={C.green} strokeWidth={2.6} />
 			</div>
 			<img
-				src={`https://logos.composio.dev/api/${entry.slug}?theme=dark`}
+				src={`/logos/${entry.slug}-dark.svg`}
 				width={14}
 				height={14}
 				alt=""
@@ -605,7 +605,7 @@ function NotionCard() {
 				}}
 			>
 				<img
-					src="https://logos.composio.dev/api/notion?theme=light"
+					src="/logos/notion-light.svg"
 					width={11}
 					height={11}
 					alt=""

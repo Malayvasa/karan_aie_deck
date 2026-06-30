@@ -30,7 +30,7 @@ const MONO =
 
 // Real brand logos via Composio's logo CDN — same pattern KnowledgeFragments
 // uses, so the source windows feel like authentic app screenshots.
-const LOGO = (slug: string) => `https://logos.composio.dev/api/${slug}`;
+const LOGO = (slug: string) => `/logos/${slug}.svg`;
 
 const ELEV_LIGHT =
 	"0 0 0 1px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04)";

@@ -541,7 +541,7 @@ function ToolkitIcon({ slug }: { slug: string }) {
 		>
 			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img
-				src={`https://logos.composio.dev/api/${slug}`}
+				src={`/logos/${slug}.svg`}
 				alt={`${slug} logo`}
 				width={26}
 				height={26}
