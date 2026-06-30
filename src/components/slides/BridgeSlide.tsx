@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Boxes } from "lucide-react";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
 import { DeckSlide } from "~/components/deck/DeckSlide";
@@ -13,8 +12,8 @@ import {
 	studCenters,
 	TOTAL_H,
 	widthForStuds,
-	type Brick,
 } from "./lego/LegoBrick";
+import { PRIMITIVES } from "./lego/primitives";
 
 const TITLE_CLASS =
 	"font-mono text-[40px] font-normal leading-[1.05] tracking-tight text-center text-foreground";
@@ -38,12 +37,7 @@ const FIRST_BRICK_DELAY = WORDS_DURATION + 0.2;
 const BRICK_STAGGER = 0.22;
 
 // First primitive — drops into the bottom-left slot on step 0.
-const CENTRALIZATION: Brick = {
-	label: "centralization",
-	color: "#2C2C2C",
-	text: "#ffffff",
-	icon: Boxes,
-};
+const CENTRALIZATION = PRIMITIVES.centralization;
 const CENTRALIZATION_DROP = -120;
 
 export function BridgeSlide() {

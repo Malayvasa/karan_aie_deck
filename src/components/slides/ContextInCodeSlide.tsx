@@ -48,7 +48,7 @@ const DECORATOR_POP_DURATION = 0.32;
 
 export function ContextInCodeSlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="context">
 			<ContextInCodeBody />
 		</DeckSlide>
 	);
