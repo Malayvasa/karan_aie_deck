@@ -16,6 +16,8 @@ import { KnowledgeFragmentsSlide } from "~/components/slides/KnowledgeFragmentsS
 import { KnowledgeHistoryGapSlide } from "~/components/slides/KnowledgeHistoryGapSlide";
 import { TitleSlide } from "~/components/slides/TitleSlide";
 import { ToolCallsSlide } from "~/components/slides/ToolCallsSlide";
+import { VerificationInCodeSlide } from "~/components/slides/VerificationInCodeSlide";
+import { VerificationInKnowledgeWorkSlide } from "~/components/slides/VerificationInKnowledgeWorkSlide";
 
 /**
  * Minimal Spectacle theme — visuals are driven through Tailwind, so this only
@@ -64,6 +66,8 @@ export function DeckRoot() {
 			<ContextBridgeSlide />
 			<ContextInCodeSlide />
 			<ContextInKnowledgeWorkSlide />
+			<VerificationInCodeSlide />
+			<VerificationInKnowledgeWorkSlide />
 		</Deck>
 	);
 }
