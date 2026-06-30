@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Notes } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 
@@ -159,10 +160,7 @@ function ToolCallsBody() {
 			</div>
 
 			<Notes>
-				50% of all agentic tool calls today happen in software engineering. Every
-				other domain — sales, support, marketing, finance — trails far behind.
-				Despite the models getting better and better, the power of agents is
-				still concentrated almost entirely in code.
+				<PresenterNote noteKey="toolCalls" steps={1} />
 			</Notes>
 		</>
 	);

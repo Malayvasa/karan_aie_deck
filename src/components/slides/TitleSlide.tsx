@@ -1,6 +1,7 @@
 "use client";
 
 import { Notes } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 /**
@@ -23,10 +24,7 @@ export function TitleSlide() {
 			</div>
 
 			<Notes>
-				Hey everyone, I&apos;m Karan, Co-Founder and CTO of Composio. Today
-				I&apos;m here to answer one question: why is the power of agents still
-				stuck in coding — and what it takes to bridge them into all the other
-				knowledge work.
+				<PresenterNote noteKey="title" />
 			</Notes>
 		</DeckSlide>
 	);

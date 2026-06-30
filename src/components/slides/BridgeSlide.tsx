@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 import {
@@ -176,8 +177,7 @@ function BridgeBody() {
 			</div>
 
 			<Notes>
-				So how do we bridge the gap between coding agents and knowledge work
-				agents? Hold the question — the rest of the talk is the answer.
+				<PresenterNote noteKey="bridge" steps={1} />
 			</Notes>
 		</>
 	);

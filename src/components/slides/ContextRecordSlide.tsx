@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 /* ---------- palette ---------- */
@@ -133,9 +134,7 @@ function Body() {
 			</div>
 
 			<Notes>
-				Same record, three scales: an API spec for everyone, a company
-				playbook in Notion, a personal sticky note. The agent reads
-				whichever format the level calls for.
+				<PresenterNote noteKey="contextRecord" />
 			</Notes>
 		</>
 	);

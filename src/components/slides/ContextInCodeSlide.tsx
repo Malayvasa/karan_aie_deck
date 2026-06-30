@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useContext, type ReactNode } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 // GitHub (dark) palette — matched to CodebaseBentoSlide so the two code-side
@@ -91,10 +92,7 @@ function ContextInCodeBody() {
 			</div>
 
 			<Notes>
-				Context is two things at once — architecture (what talks to what)
-				and style (your team&apos;s conventions). In code, the agent gets
-				both for free: the repo is the map, soaked in your style, and the
-				agent absorbs it without anyone drawing a diagram.
+				<PresenterNote noteKey="contextInCode" />
 			</Notes>
 		</>
 	);

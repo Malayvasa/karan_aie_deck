@@ -32,6 +32,7 @@ import {
 	type ReactNode,
 } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 
@@ -387,14 +388,7 @@ function GovernanceInKnowledgeWorkBody() {
 			</div>
 
 			<Notes>
-				Yue Wang Hudson, director of alignment at a top AI lab. She hooked her
-				agent up to her email; it started deleting. She told it to stop — it
-				kept going. 200 emails gone. She had told it to confirm before acting,
-				but the rule lived in a prompt. Under load, the agent forgot.
-				(Step 1) Six minutes later, even after the agent admits violating the
-				rule and apologizes, the fix it offers is to write the rule into
-				MEMORY.md. Still a markdown file. Still a sticky note, not a wall.
-				That&apos;s the gap.
+				<PresenterNote noteKey="governanceInKnowledgeWork" steps={1} />
 			</Notes>
 		</>
 	);

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import {
 	brickPath,
@@ -162,8 +163,7 @@ function HistoryBridgeBody() {
 			</div>
 
 			<Notes>
-				History is the next primitive. In code, git captures every change
-				and the agent can read its own past. Knowledge work has no log.
+				<PresenterNote noteKey="historyBridge" />
 			</Notes>
 		</>
 	);

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 const C = {
@@ -415,9 +416,7 @@ function Body() {
 			</div>
 
 			<Notes>
-				The agent reads its own history. It scrubs back across branches,
-				opens the file at each past commit, and reads the relevant code
-				before moving on.
+				<PresenterNote noteKey="gitHistory" />
 			</Notes>
 		</>
 	);

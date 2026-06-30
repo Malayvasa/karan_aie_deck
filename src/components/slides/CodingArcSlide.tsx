@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Notes } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 import { TabDiffBlock } from "./coding-arc/TabDiffBlock";
@@ -122,10 +123,7 @@ function CodingArcBody() {
 			</div>
 
 			<Notes>
-				Over the last 2–3 years, we&apos;ve all seen how we started with just an
-				autocomplete and now software engineering is fully autonomous. We&apos;ve
-				moved on from pressing tab, tab, tab to just letting Claude cook.
-				That&apos;s just magic.
+				<PresenterNote noteKey="codingArc" steps={1} />
 			</Notes>
 		</>
 	);

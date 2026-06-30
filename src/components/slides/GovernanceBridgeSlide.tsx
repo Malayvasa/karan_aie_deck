@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import {
 	brickPath,
@@ -223,9 +224,7 @@ function GovernanceBridgeBody() {
 			</div>
 
 			<Notes>
-				Governance is the next primitive. In code, branches, code owners
-				and preview environments stop the agent from touching production.
-				Knowledge work has no comparable wall.
+				<PresenterNote noteKey="governanceBridge" />
 			</Notes>
 		</>
 	);

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 type AppConfig = {
@@ -274,9 +275,7 @@ function Body() {
 			</div>
 
 			<Notes>
-				Knowledge work has no history. Claude flies across every app —
-				CRM, docs, chat, email, support, tracker — types the same kind of
-				lookback into each search box, and gets nothing.
+				<PresenterNote noteKey="knowledgeHistoryGap" />
 			</Notes>
 		</>
 	);

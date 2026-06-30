@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import {
 	brickPath,
@@ -182,9 +183,7 @@ function ContextBridgeBody() {
 			</div>
 
 			<Notes>
-				Context is the next primitive. In code, the agent inherits the
-				map of the system and the team&apos;s style for free. Knowledge
-				work has neither.
+				<PresenterNote noteKey="contextBridge" />
 			</Notes>
 		</>
 	);

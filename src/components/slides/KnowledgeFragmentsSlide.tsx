@@ -39,6 +39,7 @@ import {
 } from "lucide-react";
 import { useContext, useEffect, useState, type ReactNode } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 
@@ -420,11 +421,7 @@ function KnowledgeFragmentsBody() {
 			</div>
 
 			<Notes>
-				A single deal lives in five places — the record&apos;s in Salesforce,
-				docs in Notion, threads in Slack, comms in Gmail, support in
-				Zendesk. The audience watches the tab bar fill up: every new tab is
-				another shard of the same deal, another login the agent would have
-				to wrangle.
+				<PresenterNote noteKey="knowledgeFragments" steps={1} />
 			</Notes>
 		</>
 	);

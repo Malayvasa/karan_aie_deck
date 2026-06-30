@@ -9,6 +9,7 @@ import { ContextInCodeSlide } from "~/components/slides/ContextInCodeSlide";
 import { ContextInKnowledgeWorkSlide } from "~/components/slides/ContextInKnowledgeWorkSlide";
 import { ContextRecordSlide } from "~/components/slides/ContextRecordSlide";
 import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
+import { DiagnosisSlide } from "~/components/slides/DiagnosisSlide";
 import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
 import { EventLogSlide } from "~/components/slides/EventLogSlide";
 import { GitHistorySlide } from "~/components/slides/GitHistorySlide";
@@ -88,6 +89,7 @@ export function DeckRoot() {
 			<ReversibilityInCodeSlide />
 			<ReversibilityInKnowledgeWorkSlide />
 			<ReversibilitySolutionSlide />
+			<DiagnosisSlide />
 		</Deck>
 	);
 }

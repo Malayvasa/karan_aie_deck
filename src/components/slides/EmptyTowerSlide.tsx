@@ -45,6 +45,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Notes } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import {
 	BLOCK_H,
@@ -295,11 +296,7 @@ function EmptyTowerBody() {
 			</div>
 
 			<Notes>
-				Different agents for different domains — sales, support, marketing,
-				finance — each tries to land on the same coding stack and bounces
-				off. The substrate they need isn&apos;t there. The ghost foundation
-				is just noise: scrambled labels, scrambled icons. No commit history,
-				no tests, no CI/CD, no review, no monorepo, no revert.
+				<PresenterNote noteKey="emptyTower" />
 			</Notes>
 		</>
 	);
