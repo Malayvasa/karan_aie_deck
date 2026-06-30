@@ -110,7 +110,7 @@ const C = {
 
 export function KnowledgeFragmentsSlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="centralization">
 			<KnowledgeFragmentsBody />
 		</DeckSlide>
 	);

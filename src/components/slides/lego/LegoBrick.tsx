@@ -34,6 +34,16 @@ export type PlacedBrick = {
 	fontSize?: number;
 };
 
+/** Rough perceived-brightness check on a #rrggbb hex. > 128 → light. */
+function isLightHex(hex: string): boolean {
+	const h = hex.replace("#", "");
+	if (h.length < 6) return true;
+	const r = parseInt(h.slice(0, 2), 16);
+	const g = parseInt(h.slice(2, 4), 16);
+	const b = parseInt(h.slice(4, 6), 16);
+	return (r * 299 + g * 587 + b * 114) / 1000 > 128;
+}
+
 export function widthForStuds(studs: number) {
 	return studs * STUD_PITCH;
 }
@@ -103,10 +113,21 @@ export function LegoBrick({
 	const centers = studCenters(studs);
 	const path = brickPath(width, centers);
 	const Icon = brick.icon;
+	// Engraving direction follows the text tone. Light text on a dark brick
+	// gets a dark drop-shadow above + light highlight below (recessed). Dark
+	// text on a light brick flips both, so the label still reads as engraved
+	// rather than embossed.
+	const lightText = isLightHex(brick.text);
+	const labelTextShadow = lightText
+		? "0 -1px 0 rgba(0,0,0,0.46), 0 1px 0 rgba(255,255,255,0.18)"
+		: "0 -1px 0 rgba(255,255,255,0.55), 0 1px 0 rgba(0,0,0,0.22)";
+	const iconFilter = lightText
+		? "drop-shadow(0 -1px 0 rgba(0,0,0,0.48)) drop-shadow(0 1px 0 rgba(255,255,255,0.16))"
+		: "drop-shadow(0 -1px 0 rgba(255,255,255,0.55)) drop-shadow(0 1px 0 rgba(0,0,0,0.22))";
 	const labelStyle = {
 		color: brick.text,
 		fontSize: fontSize ?? LABEL_FONT_SIZE,
-		textShadow: "0 -1px 0 rgba(0,0,0,0.46), 0 1px 0 rgba(255,255,255,0.18)",
+		textShadow: labelTextShadow,
 	} as const;
 
 	return (
@@ -216,10 +237,7 @@ export function LegoBrick({
 							size={15}
 							strokeWidth={2.4}
 							className="shrink-0"
-							style={{
-								filter:
-									"drop-shadow(0 -1px 0 rgba(0,0,0,0.48)) drop-shadow(0 1px 0 rgba(255,255,255,0.16))",
-							}}
+							style={{ filter: iconFilter }}
 						/>
 					) : null}
 					{labelOverride ?? brick.label}

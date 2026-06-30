@@ -274,7 +274,7 @@ const CHAT: ChatItem[] = [
 
 export function GovernanceInKnowledgeWorkSlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="governance">
 			<GovernanceInKnowledgeWorkBody />
 		</DeckSlide>
 	);

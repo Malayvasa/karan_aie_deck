@@ -44,7 +44,7 @@ const X = {
 
 export function VerificationInKnowledgeWorkSlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="verification">
 			<VerificationInKnowledgeWorkBody />
 		</DeckSlide>
 	);

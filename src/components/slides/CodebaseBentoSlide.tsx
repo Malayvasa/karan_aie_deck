@@ -49,7 +49,7 @@ const CONTENT_BASE_DELAY = OUTLINE_FADE + 0.1;
 
 export function CodebaseBentoSlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="centralization">
 			<CodebaseBentoBody />
 		</DeckSlide>
 	);

@@ -410,7 +410,7 @@ function makeTimestamp(seq: number): string {
 
 export function EventLogSlide() {
 	return (
-		<DeckSlide>
+		<DeckSlide primitive="history">
 			<Body />
 		</DeckSlide>
 	);
