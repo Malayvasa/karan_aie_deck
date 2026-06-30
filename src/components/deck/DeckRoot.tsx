@@ -9,6 +9,7 @@ import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
 import { GitHistorySlide } from "~/components/slides/GitHistorySlide";
 import { HistoryBridgeSlide } from "~/components/slides/HistoryBridgeSlide";
 import { KnowledgeFragmentsSlide } from "~/components/slides/KnowledgeFragmentsSlide";
+import { KnowledgeHistoryGapSlide } from "~/components/slides/KnowledgeHistoryGapSlide";
 import { TitleSlide } from "~/components/slides/TitleSlide";
 import { ToolCallsSlide } from "~/components/slides/ToolCallsSlide";
 
@@ -54,6 +55,7 @@ export function DeckRoot() {
 			<KnowledgeFragmentsSlide />
 			<HistoryBridgeSlide />
 			<GitHistorySlide />
+			<KnowledgeHistoryGapSlide />
 		</Deck>
 	);
 }
