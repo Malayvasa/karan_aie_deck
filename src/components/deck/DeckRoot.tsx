@@ -4,6 +4,8 @@ import { Deck, defaultTransition } from "spectacle";
 import { BridgeSlide } from "~/components/slides/BridgeSlide";
 import { CodebaseBentoSlide } from "~/components/slides/CodebaseBentoSlide";
 import { CodingArcSlide } from "~/components/slides/CodingArcSlide";
+import { ContextInCodeSlide } from "~/components/slides/ContextInCodeSlide";
+import { ContextInKnowledgeWorkSlide } from "~/components/slides/ContextInKnowledgeWorkSlide";
 import { DependencyTowerSlide } from "~/components/slides/DependencyTowerSlide";
 import { EmptyTowerSlide } from "~/components/slides/EmptyTowerSlide";
 import { EventLogSlide } from "~/components/slides/EventLogSlide";
@@ -58,6 +60,8 @@ export function DeckRoot() {
 			<GitHistorySlide />
 			<KnowledgeHistoryGapSlide />
 			<EventLogSlide />
+			<ContextInCodeSlide />
+			<ContextInKnowledgeWorkSlide />
 		</Deck>
 	);
 }
