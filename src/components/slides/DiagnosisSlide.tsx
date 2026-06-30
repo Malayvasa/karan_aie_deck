@@ -1,14 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-	Boxes,
-	History,
-	Lock,
-	Network,
-	RotateCcw,
-	ShieldCheck,
-} from "lucide-react";
 import { useContext, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { Notes, SlideContext } from "spectacle";
 import { DeckSlide } from "~/components/deck/DeckSlide";
@@ -27,6 +19,7 @@ import {
 	widthForStuds,
 	type Brick,
 } from "./lego/LegoBrick";
+import { PRIMITIVES as PRIMITIVE_BRICKS } from "./lego/primitives";
 
 /**
  * Slide 25 — The diagnosis, and the close (one slide, stepped).
@@ -79,13 +72,15 @@ const HARNESS: Brick = { label: "harness", color: "#F5C518", text: "#1a1a1a" };
 const MODEL: Brick = { label: "frontier models", color: "#0057A8", text: "#ffffff" };
 
 type Cell = { brick: Brick; col: number; row: number };
+// Colors/icons come from the shared primitive palette so every appearance of a
+// primitive — bridge slides, badges, this tower — reads as the same brick.
 const PRIMITIVES: Cell[] = [
-	{ brick: { label: "centralization", color: DARK, text: "#fff", icon: Boxes }, col: 0, row: ROW_GRID_BOTTOM },
-	{ brick: { label: "history", color: DARK, text: "#fff", icon: History }, col: 1, row: ROW_GRID_BOTTOM },
-	{ brick: { label: "context", color: DARK, text: "#fff", icon: Network }, col: 2, row: ROW_GRID_BOTTOM },
-	{ brick: { label: "verification", color: DARK, text: "#fff", icon: ShieldCheck }, col: 0, row: ROW_GRID_TOP },
-	{ brick: { label: "governance", color: DARK, text: "#fff", icon: Lock }, col: 1, row: ROW_GRID_TOP },
-	{ brick: { label: "reversibility", color: DARK, text: "#fff", icon: RotateCcw }, col: 2, row: ROW_GRID_TOP },
+	{ brick: PRIMITIVE_BRICKS.centralization, col: 0, row: ROW_GRID_BOTTOM },
+	{ brick: PRIMITIVE_BRICKS.history, col: 1, row: ROW_GRID_BOTTOM },
+	{ brick: PRIMITIVE_BRICKS.context, col: 2, row: ROW_GRID_BOTTOM },
+	{ brick: PRIMITIVE_BRICKS.verification, col: 0, row: ROW_GRID_TOP },
+	{ brick: PRIMITIVE_BRICKS.governance, col: 1, row: ROW_GRID_TOP },
+	{ brick: PRIMITIVE_BRICKS.reversibility, col: 2, row: ROW_GRID_TOP },
 ];
 const CASCADE_STAGGER = 0.26;
 const LAND_EASE = [0.34, 1.4, 0.6, 1] as const;
