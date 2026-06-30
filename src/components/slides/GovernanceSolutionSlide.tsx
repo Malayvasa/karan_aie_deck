@@ -10,6 +10,7 @@ import {
 	type ReactNode,
 } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 const SANS =
@@ -184,15 +185,7 @@ function GovernanceSolutionBody() {
 			</div>
 
 			<Notes>
-				We build the wall in two layers. First — deterministic scope control:
-				the agent gets the toolkits and only the toolkits it needs, and
-				within each toolkit only the specific actions you grant. Read but
-				not delete. View but not push. The boundary lives outside the agent
-				— it can&apos;t be argued with or forgotten under load. Second —
-				policy in plain language: max destructive ops per call, outbound
-				domain restrictions, confirm on bulk. Enforced before the action
-				executes. Yue&apos;s rule lived in the agent&apos;s memory. This one
-				doesn&apos;t.
+				<PresenterNote noteKey="governanceSolution" />
 			</Notes>
 		</>
 	);

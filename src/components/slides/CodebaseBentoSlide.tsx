@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useContext, type ReactNode } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 // GitHub (dark) palette — used directly so the bento reads as actual GitHub UI.
@@ -144,11 +145,7 @@ function CodebaseBentoBody() {
 			</div>
 
 			<Notes>
-				Coding agents work phenomenally well because everything they need is
-				already in one place: the codebase. The map of the system, the
-				history, the tests, the checks — all soaked into a single substrate
-				they can read from and write to. That centralization is the part
-				that makes coding agents look like magic.
+				<PresenterNote noteKey="codebaseBento" />
 			</Notes>
 		</>
 	);

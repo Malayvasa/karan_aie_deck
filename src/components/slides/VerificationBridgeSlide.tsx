@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Boxes, History, Network, ShieldCheck } from "lucide-react";
 import { useContext } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import {
 	brickPath,
@@ -225,9 +226,7 @@ function VerificationBridgeBody() {
 			</div>
 
 			<Notes>
-				Verification is the next primitive. In code, tests, types, and
-				the compiler check the agent&apos;s work automatically. Knowledge
-				work has no such checks.
+				<PresenterNote noteKey="verificationBridge" />
 			</Notes>
 		</>
 	);

@@ -18,6 +18,7 @@ import {
 	type ReactNode,
 } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 // GitHub (dark) palette — matched to CodebaseBentoSlide / ContextInCodeSlide so
@@ -336,14 +337,7 @@ function VerificationInCodeBody() {
 			</div>
 
 			<Notes>
-				The work checks itself. Compiler is the hard gate — it builds or it
-				doesn&apos;t. Type system kills a class of bugs. Tests catch
-				behavior. On top, a softer layer — linters, LSP, bugbot, and skill
-				files — pushes past correct into how your team actually does it. The
-				skill file on the right is part of that layer: it&apos;s the
-				convention the agent reads before it touches the controller. None of
-				it needs me; the agent acts, the checks run, it knows in seconds
-				whether it worked.
+				<PresenterNote noteKey="verificationInCode" />
 			</Notes>
 		</>
 	);

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2, X } from "lucide-react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 type LogEntry = {
@@ -444,9 +445,7 @@ function Body() {
 			</div>
 
 			<Notes>
-				Composio records every tool call across every app. The agent
-				acts, the system writes it down. You can watch the whole thing,
-				step by step.
+				<PresenterNote noteKey="eventLog" />
 			</Notes>
 		</>
 	);

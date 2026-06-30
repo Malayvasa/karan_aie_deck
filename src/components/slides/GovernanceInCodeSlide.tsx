@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useContext, type ComponentType, type ReactNode } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 // GitHub (dark) palette — matched to VerificationInCodeSlide so the code-side
@@ -263,12 +264,7 @@ function GovernanceInCodeBody() {
 			</div>
 
 			<Notes>
-				In code, governance is layered and structural. The agent can branch
-				freely, but the wall stops it from merging — branch protection rules,
-				required code-owner review, environment protection on production. None
-				of it is a request to the agent; it&apos;s declared in CODEOWNERS and
-				env rules. Not one gate — a stack of them, sized to how much damage is
-				possible.
+				<PresenterNote noteKey="governanceInCode" />
 			</Notes>
 		</>
 	);

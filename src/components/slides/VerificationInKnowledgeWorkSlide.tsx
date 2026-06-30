@@ -24,6 +24,7 @@ import {
 	type ReactNode,
 } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 
@@ -104,11 +105,7 @@ function VerificationInKnowledgeWorkBody() {
 			</div>
 
 			<Notes>
-				Karan asks his agent to do hiring outreach. The agent reads the list,
-				drafts the template, and says &quot;Okay, sending all these emails.&quot;
-				The inbox floods. Every check that would have run, would have passed.
-				The first signal that the work was actually bad came from the
-				internet — that tweet, on the next click.
+				<PresenterNote noteKey="verificationInKnowledgeWork" steps={2} />
 			</Notes>
 		</>
 	);

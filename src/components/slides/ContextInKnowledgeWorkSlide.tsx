@@ -18,6 +18,7 @@ import {
 	useState,
 } from "react";
 import { Notes, SlideContext } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 
 /* ───────────────────────────── Tokens ───────────────────────────── */
@@ -385,10 +386,7 @@ function ContextInKnowledgeWorkBody() {
 			</div>
 
 			<Notes>
-				Claude drafts the customer brief and keeps hitting gaps — usage,
-				deal stage, active seats — that live in PostHog, Salesforce, and
-				the database. The synthesis lives in a human&apos;s head, not in
-				any one tool, so the agent can&apos;t reach it.
+				<PresenterNote noteKey="contextInKnowledgeWork" />
 			</Notes>
 		</>
 	);

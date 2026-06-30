@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Notes } from "spectacle";
+import { PresenterNote } from "~/components/deck/PresenterNote";
 import { DeckSlide } from "~/components/deck/DeckSlide";
 import { useStepMotion } from "~/components/deck/useStepMotion";
 import {
@@ -428,12 +429,7 @@ function DependencyTowerBody() {
 			</div>
 
 			<Notes>
-				Why was the proliferation here so fast? Everybody thinks the answer is
-				models - the foundational models and the harnesses, Claude Code, Cursor,
-				the Codexes of the world, got better and better. And that matters a lot.
-				But on their own it wouldn&apos;t have worked - not without the
-				infrastructure software engineering already had: revert, commit history,
-				tests, CI/CD, review, monorepos, and the codebase itself.
+				<PresenterNote noteKey="dependencyTower" steps={4} />
 			</Notes>
 		</>
 	);
