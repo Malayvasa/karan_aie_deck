@@ -21,6 +21,7 @@ import {
 	useContext,
 	useEffect,
 	useState,
+	type ComponentType,
 	type ReactNode,
 } from "react";
 import { Notes, SlideContext } from "spectacle";
@@ -1007,7 +1008,7 @@ function EngagementIcon({
 	tint,
 	iconSize = 16,
 }: {
-	icon: typeof MessageCircle;
+	icon: ComponentType<{ size?: number; strokeWidth?: number }>;
 	count?: ReactNode;
 	tint?: string;
 	iconSize?: number;
